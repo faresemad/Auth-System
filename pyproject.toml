@@ -7,11 +7,9 @@ name = "django-auth-system"
 version = "0.1.0"
 description = "A pluggable Django authentication system with JWT cookies, email verification, password reset, and TOTP-based 2FA with backup codes."
 readme = "README.md"
-license = {text = "MIT"}
+license = { text = "MIT" }
 keywords = ["django", "auth", "authentication", "jwt", "2fa", "totp", "drf"]
-authors = [
-    {name = "Your Name", email = "you@example.com"},
-]
+authors = [{ name = "Fares Emad", email = "frsemd@gmail.com" }]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Framework :: Django",
@@ -47,13 +45,7 @@ Documentation = "https://github.com/your-username/django-auth-system#readme"
 Issues = "https://github.com/your-username/django-auth-system/issues"
 
 [project.optional-dependencies]
-dev = [
-    "pytest",
-    "pytest-django",
-    "pytest-cov",
-    "ruff",
-    "mypy",
-]
+dev = ["pytest", "pytest-django", "pytest-cov", "ruff", "mypy"]
 
 [project.entry-points."django.apps"]
 auth_system = "auth_system.apps:AuthSystemConfig"
