@@ -1,0 +1,76 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "django-auth-system"
+version = "0.1.0"
+description = "A pluggable Django authentication system with JWT cookies, email verification, password reset, and TOTP-based 2FA with backup codes."
+readme = "README.md"
+license = {text = "MIT"}
+keywords = ["django", "auth", "authentication", "jwt", "2fa", "totp", "drf"]
+authors = [
+    {name = "Your Name", email = "you@example.com"},
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: Django",
+    "Framework :: Django :: 5.0",
+    "Framework :: Django :: 5.1",
+    "Framework :: Django :: 6.0",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP :: Session",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "Django>=4.2",
+    "djangorestframework>=3.14",
+    "djangorestframework-simplejwt>=5.3",
+    "pyotp>=2.8",
+    "qrcode>=7.4",
+    "redis>=5.0",
+    "drf-spectacular>=0.27",
+]
+
+[project.urls]
+Homepage = "https://github.com/your-username/django-auth-system"
+Repository = "https://github.com/your-username/django-auth-system"
+Documentation = "https://github.com/your-username/django-auth-system#readme"
+Issues = "https://github.com/your-username/django-auth-system/issues"
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-django",
+    "pytest-cov",
+    "ruff",
+    "mypy",
+]
+
+[project.entry-points."django.apps"]
+auth_system = "auth_system.apps:AuthSystemConfig"
+
+[tool.setuptools.packages.find]
+include = ["auth_system", "auth_system.*"]
+
+[tool.setuptools.package-data]
+"auth_system" = ["templates/**"]
+
+[tool.ruff]
+line-length = 95
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "N", "UP"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "tests.settings"
+python_files = ["tests.py", "test_*.py"]
+testpaths = ["tests"]

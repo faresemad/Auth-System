@@ -1,0 +1,3 @@
+include README.md
+recursive-include auth_system/templates *
+recursive-include auth_system/migrations *
