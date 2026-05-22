@@ -18,13 +18,43 @@ Complete walkthrough for integrating `django-auth-system` into a Django project.
 
 ---
 
+## Local Installation
+
+> **Note:** `django-auth-system` is not yet published on PyPI. Install it directly from the local source.
+
+### Option 1 — Editable install (recommended for development)
+
+From the root of this repo:
+
+```bash
+pip install -e .
+```
+
+This installs the package in editable mode — any changes you make to the source code are reflected immediately without reinstalling.
+
+### Option 2 — Direct path install
+
+```bash
+pip install /path/to/auth-system
+```
+
+### Requirements
+
+These dependencies are **not** bundled with the package (install them separately):
+
+```bash
+pip install django djangorestframework djangorestframework-simplejwt drf-spectacular redis pyotp qrcode
+```
+
+---
+
 ## Quick Start — New Project
 
 ### 1. Create a Django project
 
 ```bash
 pip install django djangorestframework djangorestframework-simplejwt drf-spectacular redis pyotp qrcode
-pip install django-auth-system
+pip install -e /path/to/auth-system   # or the install method of your choice from above
 
 django-admin startproject myproject
 cd myproject
