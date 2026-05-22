@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-auth-system"
-version = "0.1.0"
+version = "0.1.1"
 description = "A pluggable Django authentication system with JWT cookies, email verification, password reset, and TOTP-based 2FA with backup codes."
 readme = "README.md"
 license = { text = "MIT" }
