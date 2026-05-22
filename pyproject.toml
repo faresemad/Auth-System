@@ -39,10 +39,10 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/your-username/django-auth-system"
-Repository = "https://github.com/your-username/django-auth-system"
-Documentation = "https://github.com/your-username/django-auth-system#readme"
-Issues = "https://github.com/your-username/django-auth-system/issues"
+Homepage = "https://github.com/faresemad/Auth-System"
+Repository = "https://github.com/faresemad/Auth-System"
+Documentation = "https://github.com/faresemad/Auth-System#readme"
+Issues = "https://github.com/faresemad/Auth-System/issues"
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-django", "pytest-cov", "ruff", "mypy"]
