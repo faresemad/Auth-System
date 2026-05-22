@@ -39,7 +39,6 @@ class SignupLoginFlowTest(TestCase):
 
         user = User.objects.get(email=self.user_data["email"])
         self.assertFalse(user.is_active)
-        self.assertFalse(getattr(user, "is_verified", False))
 
         # ── Verify email ─────────────────────────────────────────
         token = default_token_generator.make_token(user)
@@ -50,7 +49,6 @@ class SignupLoginFlowTest(TestCase):
 
         user.refresh_from_db()
         self.assertTrue(user.is_active)
-        self.assertTrue(user.is_verified)
 
         # ── Login ────────────────────────────────────────────────
         resp = self.client.post(

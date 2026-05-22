@@ -42,7 +42,6 @@ from django.db import models
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
-    is_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
@@ -154,7 +153,6 @@ The package expects your `AUTH_USER_MODEL` to have at minimum:
 | `email` | Yes | Login, signup, password reset |
 | `password` | Yes | Every auth operation |
 | `is_active` | Yes | Account disabled check, verification |
-| `is_verified` | Recommended | VerifyAccountView sets it to `True` |
 | `username` | Recommended | Admin display fallback |
 | `get_full_name()` | Optional | Admin display |
 | `check_password()` | Built-in | Password validation |
@@ -164,22 +162,6 @@ The package expects your `AUTH_USER_MODEL` to have at minimum:
 If you use Django's default `auth.User`, note:
 - The default model uses `username` as the identifier, not `email`. The `EmailAuthBackend` handles this for login, but you'll need to ensure the signup flow works.
 - The `SignupSerializer` calls `User.objects.create_user()` which handles `username` + `email`.
-- `is_verified` is not a field on the default model — the signup view sets it but the migration won't create it. Add it via a proxy model or a migration:
-
-```python
-# accounts/migrations/XXXX_add_is_verified.py
-from django.db import migrations, models
-
-class Migration(migrations.Migration):
-    dependencies = [("auth", "XXXX_migration_number")]
-    operations = [
-        migrations.AddField(
-            model_name="user",
-            name="is_verified",
-            field=models.BooleanField(default=False),
-        ),
-    ]
-```
 
 ### Recommended User model
 
@@ -190,7 +172,6 @@ from django.db import models
 
 class User(AbstractUser):
     email = models.EmailField(unique=True)
-    is_verified = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]

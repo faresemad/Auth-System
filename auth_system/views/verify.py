@@ -33,11 +33,10 @@ class VerifyAccountView(APIView):
             user = None
 
         if user is not None and default_token_generator.check_token(user, token):
-            if user.is_active and getattr(user, "is_verified", False):
+            if user.is_active:
                 raise EmailAlreadyVerified()
             user.is_active = True
-            user.is_verified = True
-            user.save(update_fields=["is_active", "is_verified"])
+            user.save(update_fields=["is_active"])
             return Response(
                 {"detail": "Account verified successfully."}, status=status.HTTP_200_OK
             )

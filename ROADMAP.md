@@ -78,9 +78,9 @@ Mismatch errors now use the `PasswordMismatch` exception with a consistent `"Pas
 
 ### 1. User Model Customisation
 
-The package assumes a `User` model with at minimum: `email`, `password`, `is_active`, `is_verified`, `get_full_name()`, `username`, `change_email()`.
+The package assumes a `User` model with at minimum: `email`, `password`, `is_active`, `get_full_name()`, `username`, `change_email()`.
 
-- `SignupSerializer` calls `User.objects.create_user()` and sets `is_active` and `is_verified` — these fields are not part of Django's default `AbstractUser`.
+- `SignupSerializer` calls `User.objects.create_user()` and sets `is_active` — this field exists on Django's default `AbstractUser`.
 - **Fix:** Provide a recommended abstract base user model, or document exactly what fields/methods are expected.
 
 ### 2. URL Prefix Helper
