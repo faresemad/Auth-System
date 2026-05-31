@@ -22,6 +22,8 @@ Built on **Django REST Framework** + **SimpleJWT** — designed for cookie-based
 - [x] **Django admin integration** — manage 2FA per user
 - [x] **OpenAPI schema** — drf-spectacular extension for cookie-JWT auth
 - [x] **Email authentication backend** — authenticate by email, not username
+- [x] **Enterprise Auth** — support for ADFS (SAML/OIDC)
+- [x] **Social Auth** — built-in API integration for `python-social-auth` (Google, Facebook, GitHub, etc.)
 - [x] **Rate limiting** — login, signup, password-reset, and 2FA-verify throttles
 - [x] **Session invalidation** — password/email change invalidates all existing JWT tokens
 - [x] **Secure email change** — pending email stored in Redis, not in URL params
@@ -58,6 +60,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_spectacular",
+    "social_django", # If using social/enterprise auth
     "auth_system",
     ...
 ]
@@ -111,6 +114,9 @@ AUTH_SYSTEM = {
         "password_reset": "5/min",
         "verify_2fa": "10/min",
     },
+    # Social Auth
+    "SOCIAL_AUTH_SUCCESS_REDIRECT_URL": "/",
+    "SOCIAL_AUTH_ERROR_REDIRECT_URL": "/login?error=true",
 }
 ```
 
@@ -129,9 +135,16 @@ Add the custom **email-based** authentication backend (if your User model uses `
 
 ```python
 AUTHENTICATION_BACKENDS = [
+    "social_core.backends.google.GoogleOAuth2",  # Example social auth
+    "social_core.backends.saml.SAMLAuth",        # Example ADFS SAML
     "auth_system.authentication.EmailAuthBackend",
     "django.contrib.auth.backends.ModelBackend",
 ]
+```
+
+To install the enterprise and social extensions, use:
+```bash
+pip install django-auth-system[enterprise]
 ```
 
 ### DRF settings
@@ -173,6 +186,8 @@ INSTALLED_APPS += ["rest_framework_simplejwt.token_blacklist"]
 | POST | `/api/auth/2fa/verify-login/` | public | Complete 2FA login step |
 | GET | `/api/auth/2fa/backup-codes/` | cookie JWT | List backup codes |
 | POST | `/api/auth/2fa/backup-codes/` | cookie JWT | Regenerate backup codes |
+| GET | `/api/auth/social/<provider>/login/` | public | Start Social/SAML/OIDC flow |
+| GET/POST | `/api/auth/social/<provider>/complete/` | public | Complete Social Auth flow |
 
 ---
 

@@ -21,6 +21,9 @@ DEFAULTS: dict = {
     "BACKUP_CODES_COUNT": 10,
     # Session auth
     "UPDATE_SESSION_AUTH_HASH": False,
+    # Social Auth
+    "SOCIAL_AUTH_SUCCESS_REDIRECT_URL": "/",
+    "SOCIAL_AUTH_ERROR_REDIRECT_URL": "/login?error=true",
 }
 
 # ── Login rate limiting ─────────────────────────────────────────────

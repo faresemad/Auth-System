@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import include, path
 
 from .views.change_email import ChangeEmailConfirmView, ChangeEmailRequestView
 from .views.change_password import ChangePasswordView
@@ -7,6 +7,7 @@ from .views.logout import LogoutView
 from .views.password_reset import PasswordResetConfirmView, PasswordResetRequestView
 from .views.refresh import TokenRefreshView
 from .views.signup import SignupView
+from .views.social import SocialCallbackView, SocialLoginURLView
 from .views.twofa.backup_codes import BackupCodesView
 from .views.twofa.disable import Disable2FAView
 from .views.twofa.enable import Enable2FAView
@@ -25,7 +26,9 @@ urlpatterns = [
     path("refresh/", TokenRefreshView.as_view(), name="token-refresh"),
     # Password management
     path(
-        "password-reset/", PasswordResetRequestView.as_view(), name="password-reset-request"
+        "password-reset/",
+        PasswordResetRequestView.as_view(),
+        name="password-reset-request",
     ),
     path(
         "password-reset-confirm/",
@@ -34,7 +37,9 @@ urlpatterns = [
     ),
     path("change-password/", ChangePasswordView.as_view(), name="change-password"),
     # Email management
-    path("change-email/", ChangeEmailRequestView.as_view(), name="change-email-request"),
+    path(
+        "change-email/", ChangeEmailRequestView.as_view(), name="change-email-request"
+    ),
     path(
         "change-email-confirm/",
         ChangeEmailConfirmView.as_view(),
@@ -48,4 +53,16 @@ urlpatterns = [
     path("2fa/verify-login/", Verify2FALoginView.as_view(), name="2fa-verify-login"),
     # Backup code management (requires authentication)
     path("2fa/backup-codes/", BackupCodesView.as_view(), name="2fa-backup-codes"),
+    # Social Auth
+    path(
+        "social/<str:provider>/login/",
+        SocialLoginURLView.as_view(),
+        name="social-login",
+    ),
+    path(
+        "social/<str:provider>/complete/",
+        SocialCallbackView.as_view(),
+        name="social-complete",
+    ),
+    path("social-auth/", include("social_django.urls", namespace="social")),
 ]

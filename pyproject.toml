@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "django-auth-system"
-version = "0.1.2"
+version = "1.0.1"
 description = "A pluggable Django authentication system with JWT cookies, email verification, password reset, and TOTP-based 2FA with backup codes."
 readme = "README.md"
 license = { text = "MIT" }
@@ -46,6 +46,8 @@ Issues = "https://github.com/faresemad/Auth-System/issues"
 
 [project.optional-dependencies]
 dev = ["pytest", "pytest-django", "pytest-cov", "ruff", "mypy"]
+social = ["social-auth-app-django>=5.4.0"]
+enterprise = ["social-auth-app-django>=5.4.0"]
 
 [project.entry-points."django.apps"]
 auth_system = "auth_system.apps:AuthSystemConfig"

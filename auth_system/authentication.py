@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
+from django.db.models import Q
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.exceptions import TokenError
 
@@ -30,7 +31,7 @@ class EmailAuthBackend(ModelBackend):
             return None
         UserModel = get_user_model()
         try:
-            user = UserModel.objects.get(email=email)
+            user = UserModel.objects.get(Q(email=email) | Q(username=email) | Q(pk=email))
         except UserModel.DoesNotExist:
             return None
         if user.check_password(password) and self.user_can_authenticate(user):
